@@ -1,48 +1,45 @@
-from Classes import *
-from Main import user
-from Town import town_loop
+from classes import *
+from colorama import Fore, Style
 
 
-def arena():
-    loop = True
-    while loop == True:
-        print("You enter the arena.\n")
-        print("You can battle against others or train yourself.\n")
-        print("1. Battle\n")
-        print("2. Train\n")
-        print("3. Go back\n")
-        arena_choice = input("Enter your choice: ")
-        if arena_choice == "1":
-            # If the user chose to battle, create a gladiator.
-            gladiator = Gladiator("The gladiator", 100, 10, 10, 30)
-            # The battle logic.
-            while gladiator.hp > 0 and user.hp > 0:
-                # The person who attacks first is determined by using their skill levels in a random range, and the higher number chosen is the first attacker.
-                if random.randint(1, gladiator.skill) > random.randint(1, user.skill):
-                    # The gladiator attacks first.
-                    user.take_damage(gladiator.attack, gladiator.skill)
-                    # If the user's HP is greater than 0, the user attacks.
-                    if user.hp > 0:
-                        # The user attacks.
-                        gladiator.take_damage(user.attack, user.skill)
-                elif random.randint(1, gladiator.skill) < random.randint(1, user.skill):
-                    # The user attacks first.
-                    gladiator.take_damage(user.attack, user.skill)
-                    # If the gladiator's HP is greater than 0, the gladiator attacks.
-                    if gladiator.hp > 0:
-                        # The gladiator attacks.
-                        user.take_damage(gladiator.attack, gladiator.skill)
-                print(user.hp, gladiator.hp)
-                input("Press enter to continue.\n")
-            # Depending on the outcome of the battle, print the results.
-            if gladiator.hp <= 0:
-                print("You won the battle!\n")
-                town_loop()
-            elif user.hp <= 0:
-                print("You lost the battle!\n")
-                town_loop()
+def do_arena(user: Player):
+    print("You enter the arena.\n")
+    print("You can battle against others or train yourself.\n")
+    print("1. Battle\n")
+    print("2. Train\n")
+    print("3. Go back\n")
+    arena_choice = input("Enter your choice: ")
+    print("---------------------\n")
 
-        elif arena_choice == "2":
+    if arena_choice == "1":
+        # If the user chose to battle, create a gladiator.
+        gladiator = Gladiator("The gladiator", 100, 10, 0, 10)
+        battle(user, gladiator)
+
+        # Depending on the outcome of the battle, print the results.
+        if gladiator.hp <= 0:
+            print("You won the battle! You received $10.\n")
+            user.money += 50
+            # Return the user to the town.
+            return Location.TOWN
+        elif user.hp <= 0:
+            # Prints the state of the battle in red.
+            print(Fore.RED + "-------------")
+            print("You lost the battle!")
+            print("-------------")
+            # Return the color to the default.
+            print(Style.RESET_ALL)
+            # Return the user to the town.
+            return Location.TOWN
+
+    elif arena_choice == "2":
+        print("You begin training. Your stats have a chance to increase at the end of each training session.\n")
+        # The training logic.
+        if user.hp <= 25:
+            print("You are too weak to train.\n")
+            # Return the user to the town.
+            return Location.TOWN
+
+        else:
+            # There is a random chance that the stats will increase.
             pass
-        elif arena_choice == "3":
-            town_loop()
