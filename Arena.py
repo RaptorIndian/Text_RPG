@@ -6,8 +6,7 @@ def do_arena(user: Player):
     print("You enter the arena.\n")
     print("You can battle against others or train yourself.\n")
     print("1. Battle\n")
-    print("2. Train\n")
-    print("3. Go back\n")
+    print("2. Go back\n")
     arena_choice = input("Enter your choice: ")
     print("---------------------\n")
 
@@ -33,13 +32,6 @@ def do_arena(user: Player):
             return Location.TOWN
 
     elif arena_choice == "2":
-        print("You begin training. Your stats have a chance to increase at the end of each training session.\n")
-        # The training logic.
-        if user.hp <= 25:
-            print("You are too weak to train.\n")
-            # Return the user to the town.
-            return Location.TOWN
-
-        else:
-            # There is a random chance that the stats will increase.
-            pass
+        print("You leave the arena.\n")
+        # Return the user to the town.
+        return Location.TOWN

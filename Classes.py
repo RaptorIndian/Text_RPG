@@ -10,7 +10,7 @@ class Location(Enum):
 
 
 class Player:
-    def __init__(self, name, hp, attack, defense, skill, money, army, location):
+    def __init__(self, name, hp, attack, defense, skill, money, army, location, weight, inventory):
         self.name = name
         self.hp = hp
         self.attack = attack
@@ -19,13 +19,14 @@ class Player:
         self.money = money
         self.army = army
         self.location = location
+        self.weight = weight
+        weight = weight
+        self.inventory = inventory
 
     def low_hp(self):
         # Prints the player's hp in the color red.
         print(Fore.RED + str(self.hp))
         print(Style.RESET_ALL)
-
-    army = []
 
 
 class Spearman:
@@ -51,6 +52,16 @@ class Gladiator:
         self.attack = attack
         self.defense = defense
         self.skill = skill
+
+
+class Food:
+    def __init__(self, name, amount, hp):
+        self.name = name
+        self.amount = amount
+        self.hp = hp
+
+
+skill_table = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 
 def battle(unit_1, unit_2):

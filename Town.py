@@ -24,11 +24,13 @@ def do_town(user: Player):
     elif choice == "4":
         print(user.name)
         print("---------------------\n")
-        print(f"You have $" + str(user.money) + ".\n")
-        print(f"Your HP is " + str(user.hp) + ".\n")
-        print(f"Your attack is " + str(user.attack) + ".\n")
-        print(f"Your defense is " + str(user.defense) + ".\n")
-        print(f"Your skill is " + str(user.skill) + ".\n")
+        "name, hp, attack, defense, skill, money, army, location, weight, inventory"
+        print(f"{user.name}")
+        print(f"HP: {user.hp}")
+        print(f"Attack: {user.attack}")
+        print(f"Defense: {user.defense}")
+        print(f"Skill: {user.skill}")
+        print(f"Money: {user.money}")
 
         units = [soldier.__class__.__name__ for soldier in user.army]
         spear_amount = units.count("Spearman")
@@ -40,6 +42,11 @@ def do_town(user: Player):
             final_amount += f"\n{knight_amount} Knight(s) "
         print(
             f"Your army consists of {len(user.army)} units. {final_amount}\n")
+
+        print(f"Location: {user.location}")
+        print(f"Weight: {user.weight}")
+        print(f"Inventory: {user.inventory}")
+
         input("Press enter to continue.\n")
         return Location.TOWN
     elif choice == "5":
