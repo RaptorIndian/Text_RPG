@@ -5,9 +5,10 @@ def do_barracks(user: Player):
     print("---------------------\n")
     print("There is a large number of soldiers waiting in the barracks just waiting to be recruited.\n")
     print("You can also train or purchase arrows.\n")
-    print("1. Recruit a soldier")
-    print("2. Train yourself")
-    print("3. Buy arrows")
+    print("1. Recruit a soldier\n")
+    print("2. Train yourself\n")
+    print("3. Buy arrows\n")
+    print("4. Leave the barracks\n")
     barracks_choice = input("Enter your choice: ")
     print("---------------------\n")
 
@@ -70,15 +71,16 @@ def do_barracks(user: Player):
             return Location.BARRACKS
         else:
             # There is a random chance that the stats will increase.
-            health_lost = random.randint(10, 25)
-
+            # health_lost = random.randint(10, 25)
+            skill_increase = None
             for interval in skill_table:
                 # If the user's skill is less than 10.
                 if user.skill < interval:
                     # The chance to gain skill is 1/8.
-                    if random.randint(1, 6) == 1:
+                    if random.randint(1, 2) == 1:
                         # Increase the user's skill by a random number between 1 and 2.
-                        user.skill += random.randint(1, 2)
+                        skill_increase = random.randint(1, 2)
+                        user.skill += skill_increase
                 else:
                     # The chance to gain skill is 1/12.
                     if random.randint(1, 10) == 1:
@@ -94,36 +96,63 @@ def do_barracks(user: Player):
                     print(
                         "You feel too injured to continue training, you don't feel any more skillful than you were before.\n")
                     # Return the user to the barracks menu.
+                    # Return the user's hp to the max.
+                    user.hp = 100
                     return Location.BARRACKS
                 else:
                     # Subtract the health lost from the user's hp.
                     user.hp -= health_lost
-                input("Press enter to continue training.\n")
 
-            # If they did not gain any skill.
-            if skill_increase is not None:
-                print(f"Your skill has increased by {skill_increase}.")
-                skill_increase = None
+                # If they gained skill.
+                if skill_increase is not None:
+                    colorize_text(
+                        f"Your skill has increased by {skill_increase}.", "green")
+                    # Reset the skill_increase variable.
+                    skill_increase = None
+                    print("Do you want to continue training?\n\n 1. Yes\n\n 2. No\n")
 
-            else:
-                print(
-                    "You feel too injured to continue training, you don't feel any more skillful than you were before.\n")
-                input("Press enter to continue.\n")
-                # Return the user to the barracks menu.
-                return Location.BARRACKS
+                    cancel = input(
+                        "Enter your choice: ")
+                    print("---------------------\n")
 
-    # # If the user chose to buy arrows.
-    # if barracks_choice == "3":
-    #     print("You can buy arrows here.\n")
-    #     # Request user input.
-    #     amount = int(input("How many: "))
-    #     # If the user has enough money.
-    #     if user.money >= amount * 10:
-    #         # Subtract the money from the user's money.
-    #         user.money -= amount * 10
-    #         # Add the amount of arrows to the user's inventory.
-    #         user.inventory.append(Arrow(amount))
-    #     else:
-    #         print("You do not have enough money.\n")
-    #         # Return the user to the barracks menu.
-    #         return Location.BARRACKS
+                    if cancel == "2":
+                        # Return the user to the barracks menu.
+                        return Location.BARRACKS
+                    elif cancel == "1":
+                        # Continue training.
+                        pass
+                else:
+                    # If they didn't gain skill.
+                    print(
+                        "You don't feel much more skillful than before. Do you want to continue training?\n\n 1. Yes\n\n 2. No\n")
+
+                    cancel = input(
+                        "Enter your choice: ")
+                    print("---------------------\n")
+                    if cancel == "2":
+                        # Return the user to the barracks menu.
+                        return Location.BARRACKS
+                    elif cancel == "1":
+                        # Continue training.
+                        pass
+
+    # If the user chose to buy arrows.
+    if barracks_choice == "3":
+        print("You can buy arrows here.\n")
+        # Request user input.
+        amount = int(input("How many: "))
+        # If the user has enough money.
+        if user.money >= amount * 10:
+            # Subtract the money from the user's money.
+            user.money -= amount * 10
+            # Add the amount of arrows to the user's inventory.
+            user.inventory.append(Arrow(amount))
+        else:
+            print("You do not have enough money.\n")
+            # Return the user to the barracks menu.
+            return Location.BARRACKS
+
+    # If the user chose to leave the barracks.
+    if barracks_choice == "4":
+        # Return the user to the town.
+        return Location.TOWN

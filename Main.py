@@ -2,6 +2,11 @@ from classes import *
 from barracks import do_barracks
 from town import do_town
 from arena import do_arena
+from tavern import do_tavern
+from shop import do_shop
+from stats import do_stats
+
+# The game runs from this file.
 
 
 def main():
@@ -17,8 +22,10 @@ def main():
     print("You can go to the barracks to train your character, you can go to the arena to fight, and a tavern to rest.\n")
     print("You can also go to the shop near the town sqaure.\n")
 
+    # Playing state.
     playing = True
     while playing:
+        print("---------------------")
         if user.location == Location.TOWN:
             user.location = do_town(user)
 
@@ -27,9 +34,21 @@ def main():
 
         elif user.location == Location.BARRACKS:
             user.location = do_barracks(user)
-        else:
-            # No location
-            pass
+
+        elif user.location == Location.SHOP:
+            user.location = do_shop(user)
+
+        elif user.location == Location.TAVERN:
+            user.location = do_tavern(user)
+
+        elif user.location == Location.STATS:
+            location_name = "Green Town"
+            user.location = do_stats(user, location_name)
+
+        elif user.location == Location.QUIT:
+            playing = False
+            print("You quit the game.")
+            break
 
 
 main()

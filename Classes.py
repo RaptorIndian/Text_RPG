@@ -7,6 +7,10 @@ class Location(Enum):
     TOWN = 1
     ARENA = 2
     BARRACKS = 3
+    TAVERN = 4
+    SHOP = 5
+    STATS = 6
+    QUIT = 99
 
 
 class Player:
@@ -61,10 +65,35 @@ class Food:
         self.hp = hp
 
 
+def colorize_text(text, color):
+    '''Colorizes the text.'''
+    color = color.lower()
+    # If the color is red, return the text in red.
+    if color == "red":
+        return Fore.RED + text + Style.RESET_ALL
+
+    # If the color is green, return the text in green.
+    elif color == "green":
+        return Fore.GREEN + text + Style.RESET_ALL
+
+    # If the color is blue, return the text in blue.
+    elif color == "blue":
+        return Fore.BLUE + text + Style.RESET_ALL
+
+    # If the color is yellow, return the text in yellow.
+    elif color == "yellow":
+        return Fore.YELLOW + text + Style.RESET_ALL
+
+    # If the color is cyan, return the text in cyan.
+    elif color == "cyan":
+        return Fore.CYAN + text + Style.RESET_ALL
+
+
 skill_table = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 
 def battle(unit_1, unit_2):
+    '''The battle logic.'''
     # If it is one-on-one combat.
     if type(unit_1) is not list and type(unit_2) is not list:
         # Decides who goes first.
