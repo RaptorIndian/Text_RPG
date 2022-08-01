@@ -7,7 +7,7 @@ def do_stats(user: Player, location_name: str):
     print(colorize_text(user.name, "cyan"))
     # If the user's HP is less than 25, print the user's HP in red.
     if user.hp < 25:
-        colorize_text(f"HP: {user.hp}", "red")
+        print(colorize_text(f"HP: {user.hp}", "red"))
     else:
         print(f"HP: {user.hp}")
     # Prints the user's attack.

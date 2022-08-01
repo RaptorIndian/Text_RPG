@@ -105,8 +105,8 @@ def do_barracks(user: Player):
 
                 # If they gained skill.
                 if skill_increase is not None:
-                    colorize_text(
-                        f"Your skill has increased by {skill_increase}.", "green")
+                    print("Your skill has increased by " +
+                          colorize_text(str(skill_increase), "green") + ".")
                     # Reset the skill_increase variable.
                     skill_increase = None
                     print("Do you want to continue training?\n\n 1. Yes\n\n 2. No\n")

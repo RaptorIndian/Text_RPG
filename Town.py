@@ -13,21 +13,27 @@ def do_town(user: Player):
     choice = input("Enter your choice: ")
 
     if choice == "1":
+        user.location = Location.BARRACKS
         return Location.BARRACKS
 
     elif choice == "2":
+        user.location = Location.TAVERN
         return Location.TAVERN
 
     elif choice == "3":
+        user.location = Location.ARENA
         return Location.ARENA
 
     elif choice == "4":
+        user.location = Location.SHOP
         return Location.SHOP
 
     elif choice == "5":
+        user.location = Location.STATS
         return Location.STATS
 
     elif choice == "99":
+        user.location = Location.QUIT
         return Location.QUIT
 
     else:
