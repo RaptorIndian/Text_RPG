@@ -44,7 +44,7 @@ def do_stats(user: Player, location_name: str):
         if knight_amount > 0:
             final_amount += f"\n{knight_amount} Knight(s) "
         print(
-            f"Your army consists of {len(user.army)} units. {final_amount}")
+            f"Your army consists of {len(user.army)} units.  {final_amount}")
 
     # Prints the user's carrying weight.
     print(f"Weight: {user.weight}")

@@ -22,27 +22,21 @@ def do_barracks(user: Player):
         recruitment_choice = input("Enter your choice: ")
         # If the user chose to recruit a spearman, ask how many.
         amount = int(input("How many: "))
-        # Add the amount of spearmen to the user's army with the default stats.
-        if amount > 0:
-            hp = int(100)
-            attack = int(30)
-            defense = int(20)
-            skill = int(10)
-            for i in range(amount):
-                user.army.append(
-                    Spearman(hp, attack, defense, skill))
 
         # If the user chose to recruit a spearman, ask how many.
-        elif recruitment_choice == "1":
+        if recruitment_choice == "1":
             amount = int(input("How many: "))
-            # Add the amount of knights to the user's army with the default stats.
+            # Add the amount of spearmen to the user's army with the default stats.
             if amount > 0:
                 hp = int(100)
-                attack = int(50)
-                defense = int(45)
-                skill = int(30)
+                attack = int(30)
+                defense = int(20)
+                skill = int(10)
                 for i in range(amount):
-                    user.army.append(Spearman(hp, attack, defense, skill))
+                    user.army.append(
+                        Spearman(hp, attack, defense, skill, 100, [], []))
+                # Return the user to the barracks.
+                return Location.BARRACKS
 
         # If the user chose to recruit a knight, ask how many.
         elif recruitment_choice == "2":
@@ -54,11 +48,13 @@ def do_barracks(user: Player):
                 defense = int(45)
                 skill = int(30)
                 for i in range(amount):
-                    user.army.append(Spearman(hp, attack, defense, skill))
+                    user.army.append(Knight(hp, attack, defense, skill))
+                # Return the user to the barracks.
+                return Location.BARRACKS
 
         elif recruitment_choice == "3":
             # Return the user to the barracks menu.
-            pass
+            return Location.BARRACKS
 
     # If the user chose to train.
     if barracks_choice == "2":

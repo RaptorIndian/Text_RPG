@@ -34,19 +34,25 @@ class Player:
 
 
 class Spearman:
-    def __init__(self, hp, attack, defense, skill):
-        self.hp = hp
-        self.attack = attack
-        self.defense = defense
-        self.skill = skill
+    def __init__(self, hp, attack, defense, skill, upkeep, weapons, armor):
+        self.hp: int = hp
+        self.attack: int = attack
+        self.defense: int = defense
+        self.skill: int = skill
+        self.upkeep: int = upkeep
+        self.weapons: list = weapons
+        self.armor: list = armor
 
 
 class Knight:
-    def __init__(self, hp, attack, defense, skill):
-        self.hp = hp
-        self.attack = attack
-        self.defense = defense
-        self.skill = skill
+    def __init__(self, hp, attack, defense, skill, upkeep, weapons, armor):
+        self.hp: int = hp
+        self.attack: int = attack
+        self.defense: int = defense
+        self.skill: int = skill
+        self.upkeep: int = upkeep
+        self.weapons: list = weapons
+        self.armor: list = armor
 
 
 class Gladiator:
@@ -63,6 +69,13 @@ class Food:
         self.name = name
         self.amount = amount
         self.hp = hp
+
+
+class Weapon:
+    def __init__(self, name, attack, range, bludgeon, pierce, slash):
+        self.name = name
+        self.attack = attack
+        self.range = range
 
 
 def colorize_text(text: str, color: str):
