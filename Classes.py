@@ -69,6 +69,16 @@ class Player:
         print(Fore.RED + str(self.hp))
         print(Style.RESET_ALL)
 
+    def update_defense(self):
+        '''Updates the player's defense.'''
+        if self.equipped_armor is not None:
+            temp = self.defense
+            for armor in self.equipped_armor:
+                temp += armor.defense
+            self.defense = temp
+        else:
+            self.defense = 0
+
 
 class Unit:
     def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, weapons: list, equipped_armor: list, main_hand: Weapon, off_hand: Weapon):
