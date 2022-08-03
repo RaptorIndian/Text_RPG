@@ -14,15 +14,17 @@ class Food:
 
 
 class Weapon:
-    def __init__(self, name: str, weight: int, weapon_skill: int, base_damage: int, range: int, bludgeon: int, slash: int, pierce: int, poison: bool):
+    def __init__(self, name: str, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, poison=False):
         self.name = name
         self.weight = weight
         self.weapon_skill = weapon_skill
         self.base_damage = base_damage
-        self.range = range
+        self.reach = reach
         self.bludgeon = bludgeon
         self.slash = slash
         self.pierce = pierce
+        self.quality = quality
+        # Poison will be an optional parameter.
         self.poison = poison
 
 
@@ -120,7 +122,29 @@ def colorize_text(text: str, color: str):
 skill_table = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 
-def damage_calc(unit_1: Unit, unit_2: Unit, user_location: Location):
+def damage_calc(base_damage: int, weapon_skill: int, quality: int, defense: int):
+    '''Calculates damage.'''
+    # Increase the amount of damage a weapon does by the user's weapon skill with an exponential curve.
+    damage = base_damage + \
+        pow(weapon_skill, 1.18)
+    # Increase the amount of damage based on the quality of the weapon.
+    damage = damage - pow(quality, 1.1)
+    # Decrease larger amounts of damage.
+    if weapon_skill > 0:
+        damage = (damage - (math.log(weapon_skill) * 1.1))
+    if defense > 0:
+        # Create a logarithmic curve for the reduction of damage from defense.
+        damage = damage - (damage * (math.log(defense)))
+    # Round the damage to the nearest integer.
+    damage = round(damage)
+    # If the damage is somehow 0 or less, set it to 1.
+    if damage <= 0:
+        damage = 1
+    return damage
+
+
+def battle(unit_1: Unit, unit_2: Unit, user_location: Location):
+    '''Battle logic.'''
     # Decides who goes first.
     unit_1_chance = random.randint(1, unit_1.skill)
     unit_2_chance = random.randint(1, unit_2.skill)
@@ -161,15 +185,9 @@ def damage_calc(unit_1: Unit, unit_2: Unit, user_location: Location):
                     for armor_piece in defender.equipped_armor:
                         defense += armor_piece.defense
 
-                # Increase the amount of damage a weapon does by the user's weapon skill with an exponential curve.
-                damage = attacker.main_hand.base_damage + \
-                    pow(attacker.main_hand.weapon_skill, 1.13)
-                damage = damage * 1.15
-                # Create a logarithmic curve for the reduction of damage from defense.
-                damage = damage - (damage * (math.log(defense)))
-                # If the damage is somehow 0 or less, set it to 1.
-                if damage <= 0:
-                    damage = 1
+                # Calculate the damage.
+                damage = damage_calc(
+                    attacker.main_hand.base_damage, attacker.main_hand.weapon_skill, attacker.main_hand.quality, defense)
                 # Subtract the damage from the defender's HP.
                 defender.hp -= damage
                 print(f"{defender.name} took {damage} damage.")
