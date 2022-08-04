@@ -118,13 +118,33 @@ def colorize_text(text: str, color: str):
     elif color == "cyan":
         return Fore.CYAN + text + Style.RESET_ALL
 
-def weapon_skill_calc(unit):
-    pass
+def weapon_skill_calc(victor: Unit, loser: Unit):
+    '''Calculates the weapon skill of the victor.'''
+    victor_weapon_skill = victor.main_hand.weapon_skill
+    kills_required = [None, 30, 28, 23, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4]
+    # Create a logarithmic curve based on the combat skill of the loser.
+    calc = percentages[victor_weapon_skill] + pow(loser.combat_skill, .22)
+    # Round the calculation to the nearest integer.
+    calc = round(calc)
+    # Create a random number between calc and 100.
+    random_number = random.randint(1, 100)
+    # If the random number is less than or equal to percentages[i], return true.
+    if random_number <= calc:
+        return True
+    else:
+        return False
+    
 
 
 skill_table = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 
+
+
+
+
+
+# dmgdmgdmg ################
 def damage_calc(base_damage: int, weapon_skill: int, quality: int, defense: int):
     '''Calculates damage.'''
     # Increase the amount of damage a weapon does by the user's weapon skill with an exponential curve.

@@ -1,9 +1,11 @@
 
 from classes import *
 
+kills_required = [10]
+
 name = "Fists"
 weight = 0
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 2
 reach = 0
 bludgeon = 1
@@ -16,7 +18,7 @@ fists = Weapon(name, weight, weapon_skill, base_damage,
 
 name = "Copper Sword"
 weight = 9
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 1
@@ -31,7 +33,7 @@ copper_sword = Weapon(name, weight, weapon_skill, base_damage,
 
 name = "Bronze Sword"
 weight = 10
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 1
@@ -45,7 +47,7 @@ bronze_sword = Weapon(name, weight, weapon_skill, base_damage,
 
 name = "Iron Sword"
 weight = 12
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 1
@@ -59,7 +61,7 @@ iron_sword = Weapon(name, weight, weapon_skill, base_damage,
 
 name = "Steel Sword"
 weight = 14
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 1
@@ -75,7 +77,7 @@ swords = [copper_sword, bronze_sword, iron_sword, steel_sword]
 
 name = " Copper Axe"
 weight = 12
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 2
@@ -89,7 +91,7 @@ copper_axe = Weapon(name, weight, weapon_skill, base_damage,
 
 name = "Bronze Axe"
 weight = 13
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 2
@@ -103,7 +105,7 @@ bronze_axe = Weapon(name, weight, weapon_skill, base_damage,
 
 name = "Iron Axe"
 weight = 15
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 2
@@ -117,7 +119,7 @@ iron_axe = Weapon(name, weight, weapon_skill, base_damage,
 
 name = "Steel Axe"
 weight = 16
-weapon_skill = 0
+weapon_skill = 1
 reach = 1
 bludgeon = 2
 slash = 8
@@ -132,7 +134,7 @@ axes = [copper_axe, bronze_axe, iron_axe, steel_axe]
 
 name = "Copper Mace"
 weight = 10
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 7
@@ -146,7 +148,7 @@ copper_mace = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Bronze Mace"
 weight = 11
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 7
@@ -160,7 +162,7 @@ bronze_mace = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Iron Mace"
 weight = 13
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 7
@@ -174,7 +176,7 @@ iron_mace = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Steel Mace"
 weight = 15
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 1
 bludgeon = 7
@@ -189,7 +191,7 @@ maces = [copper_mace, bronze_mace, iron_mace, steel_mace]
 
 name = "Copper Spear"
 weight = 13
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 2
 bludgeon = 3
@@ -202,7 +204,7 @@ copper_spear = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Bronze Spear"
 weight = 14
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 2
 bludgeon = 3
@@ -216,7 +218,7 @@ bronze_spear = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Iron Spear"
 weight = 16
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 2
 bludgeon = 3
@@ -230,7 +232,7 @@ iron_spear = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Steel Spear"
 weight = 18
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 10
 reach = 2
 bludgeon = 3
@@ -246,7 +248,7 @@ spears = [copper_spear, bronze_spear, iron_spear, steel_spear]
 
 name = "Copper Dagger"
 weight = 5
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 5
 reach = 1
 bludgeon = 0
@@ -262,7 +264,7 @@ copper_dagger = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Bronze Dagger"
 weight = 6
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 5
 reach = 1
 bludgeon = 0
@@ -277,7 +279,7 @@ bronze_dagger = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Iron Dagger"
 weight = 7
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 5
 reach = 1
 bludgeon = 0
@@ -292,7 +294,7 @@ iron_dagger = Weapon(name, weight, weapon_skill, base_damage, reach,
 
 name = "Steel Dagger"
 weight = 8
-weapon_skill = 0
+weapon_skill = 1
 base_damage = 5
 reach = 1
 bludgeon = 0
@@ -336,9 +338,9 @@ def damage_calc_test(base_damage: int, weapon_skill: int, quality: int, defense:
     return damage
 
 
-for axe in daggers:
-    print(axe.name)
-    for i in range(31):
-        # Calculate the damage each weapon will do against an enemy.
-        if i > 0:
-            print(damage_calc_test(axe.base_damage, i, axe.quality, 0))
+# for axe in daggers:
+#     print(axe.name)
+#     for i in range(31):
+#         # Calculate the damage each weapon will do against an enemy.
+#         if i > 0:
+#             print(damage_calc_test(axe.base_damage, i, axe.quality, 0))
