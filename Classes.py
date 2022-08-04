@@ -118,6 +118,9 @@ def colorize_text(text: str, color: str):
     elif color == "cyan":
         return Fore.CYAN + text + Style.RESET_ALL
 
+def weapon_skill_calc(unit):
+    pass
+
 
 skill_table = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
