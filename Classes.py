@@ -14,7 +14,7 @@ class Food:
 
 
 class Weapon:
-    def __init__(self, name: str, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, poison=False):
+    def __init__(self, name: str, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, exp: int = 0, poison: bool = False):
         self.name = name
         self.weight = weight
         self.weapon_skill = weapon_skill
@@ -24,7 +24,9 @@ class Weapon:
         self.slash = slash
         self.pierce = pierce
         self.quality = quality
-        # Poison will be an optional parameter.
+        # Exp is an optional argument.
+        self.exp = exp
+        # Poison will be an optional argument.
         self.poison = poison
 
 
@@ -119,17 +121,33 @@ def colorize_text(text: str, color: str):
         return Fore.CYAN + text + Style.RESET_ALL
 
 def weapon_skill_calc(victor: Unit, loser: Unit):
-    '''Calculates the weapon skill of the victor.'''
-    victor_weapon_skill = victor.main_hand.weapon_skill
-    kills_required = [None, 30, 28, 23, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4]
-    # Create a logarithmic curve based on the combat skill of the loser.
-    calc = percentages[victor_weapon_skill] + pow(loser.combat_skill, .22)
-    # Round the calculation to the nearest integer.
-    calc = round(calc)
-    # Create a random number between calc and 100.
-    random_number = random.randint(1, 100)
-    # If the random number is less than or equal to percentages[i], return true.
-    if random_number <= calc:
+    '''Calculates the weapon skill of the victor. Used in the battle function.'''
+
+    # A list of exp intervals needed to reach the next weapon skill level.
+    exp_required = [None, 10, 40, 100, 230, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000, 3200, 3400]
+
+    requirement = 0
+    if victor.main_hand.weapon_skill <= 20:
+        requirement = exp_required[victor.main_hand.weapon_skill]
+
+    # Compare the combat skill of the victor to the combat skill of the loser.
+    if victor.combat_skill >= loser.combat_skill:
+        # An exponential function is used to slightly boost the victor's weapon exp.
+        difference = victor.combat_skill - loser.combat_skill
+        # Make sure the difference can be used in the function.
+        if difference < 0:
+            difference = 1.25
+        elif difference == 1:
+            difference = 1.5
+        victor.main_hand.exp += math.pow(difference, 1.1)
+    # If the victor's combat skill is less than the loser's, the victor's weapon exp is decreased.
+    else:
+        victor.main_hand.exp -= math.pow(loser.combat_skill - victor.combat_skill, .9)
+
+
+    if victor.main_hand.exp > requirement:
+        victor.main_hand.weapon_skill += 1
+        
         return True
     else:
         return False
@@ -169,8 +187,8 @@ def damage_calc(base_damage: int, weapon_skill: int, quality: int, defense: int)
 def battle(unit_1: Unit, unit_2: Unit, user_location: Location):
     '''Battle logic.'''
     # Decides who goes first.
-    unit_1_chance = random.randint(1, unit_1.skill)
-    unit_2_chance = random.randint(1, unit_2.skill)
+    unit_1_chance = random.randint(1, unit_1.combat_skill)
+    unit_2_chance = random.randint(1, unit_2.combat_skill)
     # If unit_1 wins the skill check.
     if unit_1_chance > unit_2_chance:
         attacker = unit_1
@@ -185,7 +203,7 @@ def battle(unit_1: Unit, unit_2: Unit, user_location: Location):
     elif unit_1_chance == unit_2_chance:
         temp = [unit_1, unit_2]
         attacker = temp.pop(random.randint(0, 1))
-        defender = temp.pop(random.randint(0, 1))
+        defender = temp[0]
     combatants = [attacker, defender]
 
     # While both units are alive.
@@ -193,14 +211,14 @@ def battle(unit_1: Unit, unit_2: Unit, user_location: Location):
         for i in range(len(combatants)):
 
             # Calculates whether or not the attack is blocked.
-            defender_block_chance = random.randint(1, defender.skill) - \
-                random.randint(1, attacker.skill)
+            defender_block_chance = random.randint(1, defender.combat_skill) - \
+                random.randint(1, attacker.combat_skill)
 
             # If the attack is not blocked.
             if defender_block_chance <= 0:
 
                 # If the defender has no armor equipped.
-                if defender.equipped_armor is None:
+                if len(defender.equipped_armor) == 0:
                     defense = 0
                 # If the defender has armor equipped.
                 else:
@@ -280,8 +298,13 @@ def battle(unit_1: Unit, unit_2: Unit, user_location: Location):
                 else:
                     print(unit_1.hp)
                     print(unit_2.hp)
-                input("Press enter to continue.\n---")
+                # input("Press enter to continue.\n---")
         # If the user is dead or lost.
+        # Calculate weapon skill exp.
+        if type(unit_1) is Player:
+            weapon_skill_calc(unit_1, unit_2)
+        else:
+            weapon_skill_calc(unit_2, unit_1)
         return user_location
 
     # If both parameters are lists, they are groups of units.
