@@ -120,6 +120,44 @@ def colorize_text(text: str, color: str):
     elif color == "cyan":
         return Fore.CYAN + text + Style.RESET_ALL
 
+def display_item(item, user: Player):
+    '''Displays an item's info.'''
+    print(f"{item.name}:")
+    if type(item) == Weapon:
+        print(f"Weight: {item.weight}")
+        print(f"Weapon Skill: {item.weapon_skill}")
+        print(f"Base Damage: {item.base_damage}")
+        print(f"Reach: {item.reach}")
+        print(f"Bludgeon: {item.bludgeon}")
+        print(f"Slash: {item.slash}")
+        print(f"Pierce: {item.pierce}")
+        print(f"Quality: {item.quality}")
+        print(f"Exp: {item.exp}")
+        if item.poison:
+            print(f"Poison: {item.poison}")
+        
+        if user.main_hand == item:
+            print("\nCurrently equipped in main hand.")
+        elif user.off_hand == item:
+            print("\nCurrently equipped in off hand.")
+        else:
+            print("Not equipped.")
+
+        # Ask the user if they want to equip the item.
+        
+
+    elif type(item) == Armor:
+        print(f"Weight: {item.weight}")
+        print(f"Defense: {item.defense}")
+        print(f"Bludgeon Resist: {item.bluegeon_resist}")
+        print(f"Slash Resist: {item.slash_resist}")
+        print(f"Pierce Resist: {item.pierce_resist}")
+
+    elif type(item) == Food:
+        print(f"Weight: {item.weight}")
+        print(f"Amount: {item.amount}")
+        print(f"HP Increase: {item.hp_increase}")
+
 def weapon_skill_calc(victor: Unit, loser: Unit):
     '''Calculates the weapon skill of the victor. Used in the battle function.'''
 

@@ -1,5 +1,5 @@
 from classes import *
-from colorama import Fore, Style
+from weapons import *
 
 
 def do_arena(user: Player):
@@ -12,7 +12,7 @@ def do_arena(user: Player):
 
     if arena_choice == "1":
         # If the user chose to battle, create a gladiator.
-        gladiator = Gladiator("The gladiator", 100, 10, 0, 10)
+        gladiator = Unit("The gladiator", 100, 0, 10, [], [], fists, None, None)
         user.location = battle(user, gladiator, user.location)
 
         # Depending on the outcome of the battle, print the results.

@@ -14,6 +14,9 @@ def do_stats(user: Player, location_name: str):
     else:
         print(f"HP: {user.hp}")
 
+    # Prints the user's weapon name.
+    print(f"Weapon: {user.main_hand.name}")
+
     # Prints the user's attack.
     # Increase the amount of damage a weapon does by the user's weapon skill with an exponential curve.
     attack = user.main_hand.base_damage + \
@@ -23,7 +26,10 @@ def do_stats(user: Player, location_name: str):
     # If the damage is somehow 0 or less, set it to 1.
     if attack <= 0:
         attack = 1
-    print(f"Attack: {attack}")
+    print(f" Attack: {attack}")
+
+    # Prints the user's main hand weapon skill.
+    print(f" Weapon Skill: {user.main_hand.weapon_skill}")
 
     # Prints the user's defense.
     user.update_defense()

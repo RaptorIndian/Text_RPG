@@ -14,7 +14,7 @@ def main():
     name = input("What will the name of your character be?\n").title()
     hp = 100
     defense = 0
-    combat_skill = 0
+    combat_skill = 1
     money = 50
     army = []
     carry_weight = 30
