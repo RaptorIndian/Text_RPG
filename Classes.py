@@ -51,7 +51,7 @@ class Location(Enum):
 
 
 class Player:
-    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, army: list, location: Location, carry_weight: int, weapons: list, equipped_armor: Armor, armors: list, inventory: list, main_hand: Weapon, off_hand: Weapon, reputation: int):
+    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, army: list, location: Location, carry_weight: int, weapons: list, equipped_armor: Armor, armors: list, inventory: list, main_hand: Weapon, off_hand: Weapon, reputation: int, playtime: int):
         self.name = name
         self.hp = hp
         self.defense = defense
@@ -67,6 +67,7 @@ class Player:
         self.main_hand = main_hand
         self.off_hand = off_hand
         self.reputation = reputation
+        self.playtime = playtime
 
     def low_hp(self):
         '''Prints the player's hp in the color red.'''
@@ -306,6 +307,13 @@ def display_inventory(user: Player):
     for item in user.inventory:
         print(display_item_details(item, user))
         print("----------------------------------")
+
+def display_army(user: Player):
+    '''Displays the user's army.'''
+    print("Army:")
+    for unit in user.army:
+        print(f"{unit.name}")
+        print("---------------------")
 
 
 def weapon_skill_calc(victor: Unit, loser: Unit):

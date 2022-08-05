@@ -86,6 +86,8 @@ def do_stats(user: Player, location_name: str):
     print("1. View weapons\n")
     print("2. View armor\n")
     print("3. View inventory\n")
+    print("4. View army\n")
+    print("5. Exit stats\n")
 
     choice = input("Enter your choice: ")
     print("---------------------\n")
@@ -101,6 +103,20 @@ def do_stats(user: Player, location_name: str):
     elif choice == "3":
         # Prints the user's inventory.
         display_inventory(user)
+
+    elif choice == "4":
+        # Prints the user's army.
+        display_army(user)
+
+    elif choice == "5":
+        # Exits the stats menu.
+        return
+
+    
+
+    else:
+        print("Invalid choice.\n")
+        do_stats(user, location_name)
 
 
     return Location.TOWN
