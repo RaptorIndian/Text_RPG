@@ -1,3 +1,4 @@
+from matplotlib.pyplot import copper
 from classes import *
 from barracks import do_barracks
 from town import do_town
@@ -5,6 +6,7 @@ from arena import do_arena
 from tavern import do_tavern
 from shop import do_shop
 from stats import do_stats
+from weapons import *
 
 # The game runs from this file.
 
@@ -23,8 +25,10 @@ def main():
     spare_armor = []
     inventory = []
     main_hand = Weapon("Fists", 0, 1, 3, 0, 0, 0, 0, 1, 0,)
+    off_hand = copper_sword
     weapons.append(main_hand)
-    off_hand = None
+    weapons.append(off_hand)
+    off_hand = copper_sword
     reputation = 0
     # Creates a player object with the name and default stats of the character.
     user = Player(name, hp, defense, combat_skill, money, army, Location.TOWN, carry_weight,

@@ -145,13 +145,66 @@ def display_item_details(item, user: Player):
         else:
             print("Not equipped.")
 
-        # Ask the user if they want to equip the item.
-        print("\nWould you like to equip this item?")
+        # Ask the user if they want to equip the weapon.
+        print("\nWould you like to manage this item?")
         print("1. Yes")
         print("2. No")
         choice = input("Choice: ")
         if choice == "1":
-            pass
+            # Check if the weapon is already equipped.
+            if item == user.main_hand and item.name != "fists" or item == user.off_hand and item.name != "fists":
+                # Ask if they want to unequip the weapon.
+                print("\nDo you want to unequip this weapon?")
+                print("1. Yes")
+                if item == user.main_hand:
+                    print("2. Move to off hand")
+                elif item == user.off_hand:
+                    print("2. Move to main hand")
+                print("3. Cancel")
+                choice = input("Choice: ")
+                if choice == "1":
+                    # Unequip the weapon.
+                    if item == user.main_hand:
+                        # Puts fists in main hand.
+                        user.main_hand = user.weapons[0]
+                    elif item == user.off_hand:
+                        user.off_hand = user.weapons[0]
+                    print("\nWeapon unequipped.")
+                    input("Press enter to continue...")
+
+                elif choice == "2":
+                    # Move the weapon to the other hand.
+                    if item == user.main_hand:
+                        user.main_hand = user.off_hand
+                        user.off_hand = item
+                    elif item == user.off_hand:
+                        user.off_hand = user.main_hand
+                        user.main_hand = item
+                    print("\nWeapon moved.")
+                    input("Press enter to continue...")
+
+                elif choice == "3":
+                    return
+            else:
+                # Ask the user if they want to equip the weapon.
+                print("\nDo you want to equip this weapon?")
+                print("1. Equip to main hand")
+                print("2. Equip to off hand")
+                print("3. Cancel")
+                choice = input("Choice: ")
+                if choice == "1":
+                    # Equip the weapon to the main hand.
+                    user.main_hand = item
+                    print("\nWeapon equipped to main hand.")
+                    input("Press enter to continue...")
+                elif choice == "2":
+                    # Equip the weapon to the off hand.
+                    user.off_hand = item
+                    print("\nWeapon equipped to off hand.")
+                    input("Press enter to continue...")
+                elif choice == "3":
+                    return
+
 
 
 
@@ -177,7 +230,7 @@ def display_weapons(user: Player):
         if i == 0:
             num = 1
         else:
-            num = i
+            num = i + 1
         print(f"{num}. {user.weapons[i].name}")
         print("---------------------")
     choice = input("Which weapon would you like to view? ")
