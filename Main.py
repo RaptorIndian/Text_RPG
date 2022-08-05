@@ -7,6 +7,7 @@ from tavern import do_tavern
 from shop import do_shop
 from stats import do_stats
 from weapons import *
+from armors import *
 
 # The game runs from this file.
 
@@ -21,7 +22,7 @@ def main():
     army = []
     carry_weight = 30
     weapons = []
-    equipped_armor = []
+    equipped_armor = gambeson
     spare_armor = []
     inventory = []
     main_hand = Weapon("Fists", 0, 1, 3, 0, 0, 0, 0, 1, 0,)

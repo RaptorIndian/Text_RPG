@@ -51,7 +51,7 @@ class Location(Enum):
 
 
 class Player:
-    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, army: list, location: Location, carry_weight: int, weapons: list, equipped_armor: list, spare_armor: list, inventory: list, main_hand: Weapon, off_hand: Weapon, reputation: int):
+    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, army: list, location: Location, carry_weight: int, weapons: list, equipped_armor: Armor, armors: list, inventory: list, main_hand: Weapon, off_hand: Weapon, reputation: int):
         self.name = name
         self.hp = hp
         self.defense = defense
@@ -62,7 +62,7 @@ class Player:
         self.carry_weight = carry_weight
         self.weapons = weapons
         self.equipped_armor = equipped_armor
-        self.spare_armor = spare_armor
+        self.armors = armors
         self.inventory = inventory
         self.main_hand = main_hand
         self.off_hand = off_hand
@@ -76,16 +76,13 @@ class Player:
     def update_defense(self):
         '''Updates the player's defense.'''
         if self.equipped_armor is not None:
-            temp = self.defense
-            for armor in self.equipped_armor:
-                temp += armor.defense
-            self.defense = temp
+            self.defense = self.equipped_armor.defense
         else:
             self.defense = 0
 
 
 class Unit:
-    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, weapons: list, equipped_armor: list, main_hand: Weapon, off_hand: Weapon):
+    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, weapons: list, equipped_armor: Armor, main_hand: Weapon, off_hand: Weapon):
         self.name = name
         self.hp = hp
         self.defense = defense
@@ -150,6 +147,8 @@ def display_item_details(item, user: Player):
         print("1. Yes")
         print("2. No")
         choice = input("Choice: ")
+
+        # If the user wants to equip the weapon.
         if choice == "1":
             # Check if the weapon is already equipped.
             if item == user.main_hand and item.name != "fists" or item == user.off_hand and item.name != "fists":
@@ -162,8 +161,9 @@ def display_item_details(item, user: Player):
                     print("2. Move to main hand")
                 print("3. Cancel")
                 choice = input("Choice: ")
+
+                # If the user wants to unequip the weapon.
                 if choice == "1":
-                    # Unequip the weapon.
                     if item == user.main_hand:
                         # Puts fists in main hand.
                         user.main_hand = user.weapons[0]
@@ -205,6 +205,52 @@ def display_item_details(item, user: Player):
                 elif choice == "3":
                     return
 
+    if type(item) == Armor:
+        print(f"|Weight: {item.weight}")
+        print(f"|Defense: {item.defense}")
+        print(f"|Bludgeon resistance: {item.bludgeon_resist}")
+        print(f"|Slash resistance: {item.slash_resist}")
+        print(f"|Pierce resistance: {item.pierce_resist}")
+
+        if user.spare_armor is not None:
+            if item in user.equipped_armor:
+                print("Currently equipped.")
+            else:
+                print("Not equipped.")
+        else:
+            print("Not equipped.")
+        print("\nWould you like to manage this item?")
+        print("1. Yes")
+        print("2. No")
+        choice = input("Choice: ")
+        if choice == "1":
+            # Check if the armor is already equipped.
+            if item in user.equipped_armor:
+                # Ask if they want to unequip the armor.
+                print("\nDo you want to unequip this armor?")
+                print("1. Yes")
+                print("2. Cancel")
+                choice = input("Choice: ")
+                if choice == "1":
+                    # Unequip the armor.
+                    user.equipped_armor = None
+                    print("\nArmor unequipped.")
+                    input("Press enter to continue...")
+                elif choice == "2":
+                    return
+            else:
+                # Ask the user if they want to equip the armor.
+                print("\nDo you want to equip this armor?")
+                print("1. Equip")
+                print("2. Cancel")
+                choice = input("Choice: ")
+                if choice == "1":
+                    # Equip the armor.
+                    user.equipped_armor = item
+                    print("\nArmor equipped.")
+                    input("Press enter to continue...")
+                elif choice == "2":
+                    return
 
 
 
@@ -250,7 +296,7 @@ def display_weapons(user: Player):
 def display_armor(user: Player):
     '''Displays the user's armor.'''
     print("Armor:")
-    for armor in user.equipped_armor:
+    for armor in user.armors:
         print(display_item_details(armor, user))
         print("----------------------------------")
 
