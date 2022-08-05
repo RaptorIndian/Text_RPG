@@ -3,7 +3,6 @@ from classes import *
 
 
 def do_stats(user: Player, location_name: str):
-    print("---------------------\n")
 
     # Prints the user's name in the color cyan.
     print(colorize_text(user.name, "cyan"))
@@ -83,5 +82,25 @@ def do_stats(user: Player, location_name: str):
         print(
             f"Your army consists of {len(user.army)} units.  {final_amount}")
 
-    input("Press enter to continue.\n")
+    print("What would you like to do?\n")
+    print("1. View weapons\n")
+    print("2. View armor\n")
+    print("3. View inventory\n")
+
+    choice = input("Enter your choice: ")
+    print("---------------------\n")
+
+    if choice == "1":
+        # Prints the user's weapons.
+        display_weapons(user)
+
+    elif choice == "2":
+        # Prints the user's armor.
+        display_armor(user)
+
+    elif choice == "3":
+        # Prints the user's inventory.
+        display_inventory(user)
+
+
     return Location.TOWN

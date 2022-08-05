@@ -120,31 +120,40 @@ def colorize_text(text: str, color: str):
     elif color == "cyan":
         return Fore.CYAN + text + Style.RESET_ALL
 
-def display_item(item, user: Player):
+
+def display_item_details(item, user: Player):
     '''Displays an item's info.'''
-    print(f"{item.name}:")
+    print("---------------------")
+    print(f"{item.name}")
     if type(item) == Weapon:
-        print(f"Weight: {item.weight}")
-        print(f"Weapon Skill: {item.weapon_skill}")
-        print(f"Base Damage: {item.base_damage}")
-        print(f"Reach: {item.reach}")
-        print(f"Bludgeon: {item.bludgeon}")
-        print(f"Slash: {item.slash}")
-        print(f"Pierce: {item.pierce}")
-        print(f"Quality: {item.quality}")
-        print(f"Exp: {item.exp}")
+        print(f"|Weight: {item.weight}")
+        print(f"|Weapon Skill: {item.weapon_skill}")
+        print(f"|Base Damage: {item.base_damage}")
+        print(f"|Reach: {item.reach}")
+        print(f"|Bludgeon: {item.bludgeon}")
+        print(f"|Slash: {item.slash}")
+        print(f"|Pierce: {item.pierce}")
+        print(f"|Quality: {item.quality}")
+        print(f"|Exp: {item.exp}")
         if item.poison:
-            print(f"Poison: {item.poison}")
+            print(f"|Can use poison.")
         
         if user.main_hand == item:
-            print("\nCurrently equipped in main hand.")
+            print("Currently equipped in main hand.")
         elif user.off_hand == item:
             print("\nCurrently equipped in off hand.")
         else:
             print("Not equipped.")
 
         # Ask the user if they want to equip the item.
-        
+        print("\nWould you like to equip this item?")
+        print("1. Yes")
+        print("2. No")
+        choice = input("Choice: ")
+        if choice == "1":
+            pass
+
+
 
     elif type(item) == Armor:
         print(f"Weight: {item.weight}")
@@ -157,6 +166,48 @@ def display_item(item, user: Player):
         print(f"Weight: {item.weight}")
         print(f"Amount: {item.amount}")
         print(f"HP Increase: {item.hp_increase}")
+
+
+def display_weapons(user: Player):
+    '''Displays the user's weapons.'''
+    print("Weapons:")
+    # Iterate through the user's weapons.
+    for i in range(len(user.weapons)):
+        # If the list index is 0, display 1.
+        if i == 0:
+            num = 1
+        else:
+            num = i
+        print(f"{num}. {user.weapons[i].name}")
+        print("---------------------")
+    choice = input("Which weapon would you like to view? ")
+
+
+    # Convert the choice to an integer.
+    choice = int(choice)
+    # Subtract one from the choice to match the list index.
+    choice = choice - 1
+    # If the choice is in the range of the user's weapons, display the weapon's info.
+    if choice in range(len(user.weapons)):
+        display_item_details(user.weapons[choice], user)
+    else:
+        print("Invalid choice.")
+        input("Press enter to continue.")
+
+def display_armor(user: Player):
+    '''Displays the user's armor.'''
+    print("Armor:")
+    for armor in user.equipped_armor:
+        print(display_item_details(armor, user))
+        print("----------------------------------")
+
+def display_inventory(user: Player):
+    '''Displays the user's inventory.'''
+    print("Inventory:")
+    for item in user.inventory:
+        print(display_item_details(item, user))
+        print("----------------------------------")
+
 
 def weapon_skill_calc(victor: Unit, loser: Unit):
     '''Calculates the weapon skill of the victor. Used in the battle function.'''

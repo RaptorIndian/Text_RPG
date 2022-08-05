@@ -22,7 +22,8 @@ def main():
     equipped_armor = []
     spare_armor = []
     inventory = []
-    main_hand = Weapon("Fists", 0, 1, 3, 0, 0, 0, 0, False)
+    main_hand = Weapon("Fists", 0, 1, 3, 0, 0, 0, 0, 1, 0,)
+    weapons.append(main_hand)
     off_hand = None
     reputation = 0
     # Creates a player object with the name and default stats of the character.
