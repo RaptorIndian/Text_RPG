@@ -5,6 +5,14 @@ from colorama import Fore, Style
 import math
 
 
+class Consumable:
+    '''A class for consumable items.'''
+    def __init__(self, name: str, description: str, amount: int):
+        self.name = name
+        self.description = description
+        self.amount = amount
+
+
 class Food:
     def __init__(self, name: str, weight: int, amount: int, hp_increase: int):
         self.name = name
@@ -251,19 +259,15 @@ def display_item_details(item, user: Player):
                 elif choice == "2":
                     return
 
-
-
-    elif type(item) == Armor:
-        print(f"Weight: {item.weight}")
-        print(f"Defense: {item.defense}")
-        print(f"Bludgeon Resist: {item.bluegeon_resist}")
-        print(f"Slash Resist: {item.slash_resist}")
-        print(f"Pierce Resist: {item.pierce_resist}")
-
     elif type(item) == Food:
-        print(f"Weight: {item.weight}")
-        print(f"Amount: {item.amount}")
-        print(f"HP Increase: {item.hp_increase}")
+        print(f"|Weight: {item.weight}")
+        print(f"|Amount: {item.amount}")
+        print(f"|HP Increase: {item.hp_increase}")
+
+    elif type(item) == Consumable:
+        print(f"|Description: {item.description}")
+        print(f"|Amount: {item.amount}")
+
 
 
 def display_weapons(user: Player):
@@ -292,7 +296,7 @@ def display_weapons(user: Player):
         print("Invalid choice.")
         input("Press enter to continue.")
 
-def display_armor(user: Player):
+def display_armors(user: Player):
     '''Displays the user's armor.'''
     print("Armor:")
     for armor in user.armors:
@@ -370,7 +374,10 @@ def damage_calc(attacker: Unit, defender: Unit):
         damage_types.append("pierce")
 
     # Randomly select a damage type.
-    damage_type = random.choice(damage_types)
+    if attacker.main_hand.name != "Fists":
+        damage_type = random.choice(damage_types)
+    else:
+        damage_type = "bludgeon"
 
     # Calculate the damage with an exponential function using the base damage, weapon skill, and quality.
     if weapon_skill > 0:
@@ -391,16 +398,13 @@ def damage_calc(attacker: Unit, defender: Unit):
             # Create a logarithmic curve for the reduction of damage from defense.
             damage = damage - (damage * (math.log(defense)))
 
-
-        damage_type = "slash"
-
         # Calculate a logarithmic curve for the reduction of damage from damage type.
         if damage_type == "bludgeon":
-            damage = damage - (damage * (math.log(defender.equipped_armor.bluegeon_resist)))
+            damage = damage - (damage * math.log(defender.equipped_armor.bluegeon_resist, .7))
         elif damage_type == "slash":
-            damage = damage - (damage * (math.log(defender.equipped_armor.slash_resist)))
+            damage = damage - (damage * math.log(defender.equipped_armor.slash_resist, .7))
         elif damage_type == "pierce":
-            damage = damage - (damage * (math.log(defender.equipped_armor.pierce_resist)))
+            damage = damage - (damage * math.log(defender.equipped_armor.pierce_resist, .7))
         print(damage_type)
     # Round the damage to the nearest integer.
     damage = round(damage)

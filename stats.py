@@ -77,41 +77,51 @@ def do_stats(user: Player, location_name: str):
         print(
             f"Your army consists of {len(user.army)} units.  {final_amount}")
 
-    print("What would you like to do?\n")
-    print("1. View weapons\n")
-    print("2. View armor\n")
-    print("3. View inventory\n")
-    print("4. View army\n")
-    print("5. Exit stats\n")
+    choices = []
+    # Determine what choices to show the user.
+    if user.weapons is not None:
+        choices.append("View weapons\n")
+    if len(user.armors) > 0:
+        choices.append("View armors\n")
+    if len(user.inventory) > 0:
+        choices.append("View inventory\n")
+    if len(user.army) > 0:
+        choices.append("View army\n")
+    if len(choices) < 0:
+        choices.append("You have nothing but your fists.\n")
 
-    choice = input("Enter your choice: ")
-    print("---------------------\n")
+    if len(choices) > 0:
+        print("What would you like to do?\n")
+        for i in range(len(choices)):
+            temp = i + 1
+            print(f"{temp}. {choices[i]}")
 
-    if choice == "1":
-        # Prints the user's weapons.
-        display_weapons(user)
+        choice = input("Enter your choice: ")
+        # Reduce the choice by 1 to match the index of the list.
+        try:
+            choice = int(choice)
+            choice -= 1
+        except ValueError:
+            print("Invalid choice.")
+            input("Press enter to continue.")
+            return Location.TOWN
+        print("---------------------\n")
 
-    elif choice == "2":
-        # Prints the user's armor.
-        display_armor(user)
-
-    elif choice == "3":
-        # Prints the user's inventory.
-        display_inventory(user)
-
-    elif choice == "4":
-        # Prints the user's army.
-        display_army(user)
-
-    elif choice == "5":
-        # Exits the stats menu.
-        return
-
-    
-
-    else:
-        print("Invalid choice.\n")
-        do_stats(user, location_name)
+        # Figure out the choice the user made.
+        try:
+            choice = choices[choice]
+        except IndexError:
+            print("Invalid choice.")
+            input("Press enter to continue.")
+            return Location.TOWN
+        if choice == "View weapons\n":
+            display_weapons(user)
+        elif choice == "View armors\n":
+            display_armors(user)
+        elif choice == "View inventory\n":
+            display_inventory(user)
+        elif choice == "View army\n":
+            display_army(user)
 
 
     return Location.TOWN
