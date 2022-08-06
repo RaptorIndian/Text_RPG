@@ -374,11 +374,14 @@ def damage_calc(attacker: Unit, defender: Unit):
 
     # Calculate the damage with an exponential function using the base damage, weapon skill, and quality.
     if weapon_skill > 0:
-        damage = base_damage + \
-        pow(weapon_skill, 1.18) * quality
+        damage = (base_damage + \
+        pow(weapon_skill, 1.1))
+
+        # Decrease the damage the larger it is using a logarithmic function.
+        damage = damage * math.log(quality, .7)
 
         # Decrease larger amounts of damage.
-        damage = (damage - (math.log(weapon_skill) * 1.1))
+        damage = damage - math.pow(weapon_skill, .15)
     else:
         print("Weapon skill is 0?!")
 

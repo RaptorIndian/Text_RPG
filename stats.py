@@ -1,5 +1,5 @@
-from turtle import update
 from classes import *
+from weapons import *
 
 
 def do_stats(user: Player, location_name: str):
@@ -16,15 +16,10 @@ def do_stats(user: Player, location_name: str):
     # Prints the user's weapon name.
     print(f"Weapon: {user.main_hand.name}")
 
-    # Prints the user's attack.
-    # Increase the amount of damage a weapon does by the user's weapon skill with an exponential curve.
-    attack = user.main_hand.base_damage + \
-        pow(user.main_hand.weapon_skill, 1.13)
-    attack = attack * 1.15
-    attack = round(attack)
+    # Prints the user's attack against something with no armor.
+    unit_2 = Unit("Dummy", 100, 1, 100, copper_axe, None, copper_sword, None)
+    attack = damage_calc(user, unit_2)
     # If the damage is somehow 0 or less, set it to 1.
-    if attack <= 0:
-        attack = 1
     print(f" Attack: {attack}")
 
     # Prints the user's main hand weapon skill.

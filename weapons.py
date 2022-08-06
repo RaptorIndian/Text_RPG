@@ -11,7 +11,7 @@ reach = 0
 bludgeon = 1
 slash = 0
 pierce = 0
-quality = 1
+quality = .75
 
 fists = Weapon(name, weight, weapon_skill, base_damage,
                reach, bludgeon, slash, pierce, quality)
@@ -24,7 +24,7 @@ reach = 1
 bludgeon = 1
 slash = 6
 pierce = 3
-quality = .94
+quality = .75
 
 
 copper_sword = Weapon(name, weight, weapon_skill, base_damage,
@@ -39,7 +39,7 @@ reach = 1
 bludgeon = 1
 slash = 6
 pierce = 3
-quality = .98
+quality = .73
 
 bronze_sword = Weapon(name, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
@@ -53,7 +53,7 @@ reach = 1
 bludgeon = 1
 slash = 6
 pierce = 3
-quality = 1.02
+quality = .7
 
 iron_sword = Weapon(name, weight, weapon_skill, base_damage,
                     reach, bludgeon, slash, pierce, quality)
@@ -67,7 +67,7 @@ reach = 1
 bludgeon = 1
 slash = 16
 pierce = 3
-quality = 1.073
+quality = .66
 
 steel_sword = Weapon(name, weight, weapon_skill, base_damage,
                      reach, bludgeon, slash, pierce, quality)
@@ -83,7 +83,7 @@ reach = 1
 bludgeon = 2
 slash = 8
 pierce = 0
-quality = .94
+quality = .75
 
 copper_axe = Weapon(name, weight, weapon_skill, base_damage,
                     reach, bludgeon, slash, pierce, quality)
@@ -97,7 +97,7 @@ reach = 1
 bludgeon = 2
 slash = 8
 pierce = 0
-quality = .98
+quality = .73
 
 bronze_axe = Weapon(name, weight, weapon_skill, base_damage,
                     reach, bludgeon, slash, pierce, quality)
@@ -111,7 +111,7 @@ reach = 1
 bludgeon = 2
 slash = 8
 pierce = 0
-quality = 1.02
+quality = .7
 
 iron_axe = Weapon(name, weight, weapon_skill, base_damage,
                   reach, bludgeon, slash, pierce, quality)
@@ -124,7 +124,7 @@ reach = 1
 bludgeon = 2
 slash = 8
 pierce = 0
-quality = 1.073
+quality = .66
 
 steel_axe = Weapon(name, weight, weapon_skill, base_damage,
                    reach, bludgeon, slash, pierce, quality)
@@ -140,7 +140,7 @@ reach = 1
 bludgeon = 7
 slash = 0
 pierce = 3
-quality = .94
+quality = .75
 
 copper_mace = Weapon(name, weight, weapon_skill, base_damage, reach,
                      bludgeon, slash, pierce, quality)
@@ -154,7 +154,7 @@ reach = 1
 bludgeon = 7
 slash = 0
 pierce = 3
-quality = .98
+quality = .73
 
 bronze_mace = Weapon(name, weight, weapon_skill, base_damage, reach,
                      bludgeon, slash, pierce, quality)
@@ -168,7 +168,7 @@ reach = 1
 bludgeon = 7
 slash = 0
 pierce = 3
-quality = 1.02
+quality = .7
 
 iron_mace = Weapon(name, weight, weapon_skill, base_damage, reach,
                    bludgeon, slash, pierce, quality)
@@ -182,7 +182,7 @@ reach = 1
 bludgeon = 7
 slash = 0
 pierce = 3
-quality = 1.073
+quality = .66
 
 steel_mace = Weapon(name, weight, weapon_skill, base_damage, reach,
                     bludgeon, slash, pierce, quality)
@@ -197,6 +197,7 @@ reach = 2
 bludgeon = 3
 slash = 0
 pierce = 7
+quality = .75
 
 copper_spear = Weapon(name, weight, weapon_skill, base_damage, reach,
                      bludgeon, slash, pierce, quality)
@@ -210,7 +211,7 @@ reach = 2
 bludgeon = 3
 slash = 0
 pierce = 7
-quality = .98
+quality = .73
 
 bronze_spear = Weapon(name, weight, weapon_skill, base_damage, reach,
                       bludgeon, slash, pierce, quality)
@@ -224,7 +225,7 @@ reach = 2
 bludgeon = 3
 slash = 0
 pierce = 7
-quality = 1.02
+quality = .7
 
 iron_spear = Weapon(name, weight, weapon_skill, base_damage, reach,
                     bludgeon, slash, pierce, quality)
@@ -238,7 +239,7 @@ reach = 2
 bludgeon = 3
 slash = 0
 pierce = 7
-quality = 1.073
+quality = .66
 
 steel_spear = Weapon(name, weight, weapon_skill, base_damage, reach,
                      bludgeon, slash, pierce, quality)
@@ -254,7 +255,7 @@ reach = 1
 bludgeon = 0
 slash = 3
 pierce = 7
-quality = .84
+quality = .75
 poison = True
 
 
@@ -270,7 +271,7 @@ reach = 1
 bludgeon = 0
 slash = 3
 pierce = 7
-quality = .86
+quality = .73
 poison = True
 
 bronze_dagger = Weapon(name, weight, weapon_skill, base_damage, reach,
@@ -285,7 +286,7 @@ reach = 1
 bludgeon = 0
 slash = 3
 pierce = 7
-quality = .88
+quality = .7
 poison = True
 
 iron_dagger = Weapon(name, weight, weapon_skill, base_damage, reach,
@@ -300,7 +301,7 @@ reach = 1
 bludgeon = 0
 slash = 3
 pierce = 7
-quality = .89
+quality = .66
 poison = True
 
 steel_dagger = Weapon(name, weight, weapon_skill, base_damage, reach,
