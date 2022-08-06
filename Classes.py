@@ -51,10 +51,9 @@ class Location(Enum):
 
 
 class Player:
-    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, army: list, location: Location, carry_weight: int, weapons: list, equipped_armor: Armor, armors: list, inventory: list, main_hand: Weapon, off_hand: Weapon, reputation: int, playtime: int):
+    def __init__(self, name: str, hp: int, combat_skill: int, money: int, army: list, location: Location, carry_weight: int, weapons: list, equipped_armor: Armor, armors: list, inventory: list, main_hand: Weapon, off_hand: Weapon, reputation: int, playtime: int):
         self.name = name
         self.hp = hp
-        self.defense = defense
         self.combat_skill = combat_skill
         self.money = money
         self.army = army
@@ -83,10 +82,9 @@ class Player:
 
 
 class Unit:
-    def __init__(self, name: str, hp: int, defense: int, combat_skill: int, money: int, weapons: list, equipped_armor: Armor, main_hand: Weapon, off_hand: Weapon):
+    def __init__(self, name: str, hp: int, combat_skill: int, money: int, weapons: list, equipped_armor: Armor, main_hand: Weapon, off_hand: Weapon):
         self.name = name
         self.hp = hp
-        self.defense = defense
         self.combat_skill = combat_skill
         self.money = money
         self.weapons = weapons
@@ -349,34 +347,64 @@ def weapon_skill_calc(victor: Unit, loser: Unit):
         return False
     
 
-
 skill_table = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 
-
-
-
-
-
 # dmgdmgdmg ################
-def damage_calc(base_damage: int, weapon_skill: int, quality: int, defense: int):
+def damage_calc(attacker: Unit, defender: Unit):
     '''Calculates damage.'''
-    # Increase the amount of damage a weapon does by the user's weapon skill with an exponential curve.
-    damage = base_damage + \
-        pow(weapon_skill, 1.18)
-    # Increase the amount of damage based on the quality of the weapon.
-    damage = damage - pow(quality, 1.1)
-    # Decrease larger amounts of damage.
+    base_damage = attacker.main_hand.base_damage
+    weapon_skill = attacker.main_hand.weapon_skill
+    quality = attacker.main_hand.quality
+
+    # Calculate what type of damage the attacker will do.
+    damage_types = []
+    temp = [attacker.main_hand.bludgeon, attacker.main_hand.slash, attacker.main_hand.pierce]
+
+    # Populate the damage types list with the chance of each damage type.
+    for _ in range(temp[0]):
+        damage_types.append("bludgeon")
+    for _ in range(temp[1]):
+        damage_types.append("slash")
+    for _ in range(temp[2]):
+        damage_types.append("pierce")
+
+    # Randomly select a damage type.
+    damage_type = random.choice(damage_types)
+
+    # Calculate the damage with an exponential function using the base damage, weapon skill, and quality.
     if weapon_skill > 0:
+        damage = base_damage + \
+        pow(weapon_skill, 1.18) * quality
+
+        # Decrease larger amounts of damage.
         damage = (damage - (math.log(weapon_skill) * 1.1))
-    if defense > 0:
-        # Create a logarithmic curve for the reduction of damage from defense.
-        damage = damage - (damage * (math.log(defense)))
+    else:
+        print("Weapon skill is 0?!")
+
+    if defender.equipped_armor is not None:
+        defense = defender.equipped_armor.defense
+        if defense > 0:
+            # Create a logarithmic curve for the reduction of damage from defense.
+            damage = damage - (damage * (math.log(defense)))
+
+
+        damage_type = "slash"
+
+        # Calculate a logarithmic curve for the reduction of damage from damage type.
+        if damage_type == "bludgeon":
+            damage = damage - (damage * (math.log(defender.equipped_armor.bluegeon_resist)))
+        elif damage_type == "slash":
+            damage = damage - (damage * (math.log(defender.equipped_armor.slash_resist)))
+        elif damage_type == "pierce":
+            damage = damage - (damage * (math.log(defender.equipped_armor.pierce_resist)))
+        print(damage_type)
     # Round the damage to the nearest integer.
     damage = round(damage)
     # If the damage is somehow 0 or less, set it to 1.
     if damage <= 0:
         damage = 1
+
     return damage
 
 
@@ -423,8 +451,7 @@ def battle(unit_1: Unit, unit_2: Unit, user_location: Location):
                         defense += armor_piece.defense
 
                 # Calculate the damage.
-                damage = damage_calc(
-                    attacker.main_hand.base_damage, attacker.main_hand.weapon_skill, attacker.main_hand.quality, defense)
+                damage = damage_calc(attacker, defender)
                 # Subtract the damage from the defender's HP.
                 defender.hp -= damage
                 print(f"{defender.name} took {damage} damage.")
