@@ -23,9 +23,10 @@ class Food:
 
 
 class Weapon:
-    def __init__(self, name: str, description: str, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, poison: bool = False, exp: int = 0):
+    def __init__(self, name: str, description: str, price: int, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, poison: bool = False, exp: int = 0):
         self.name = name
         self.description = description
+        self.price = price
         self.weight = weight
         self.weapon_skill = weapon_skill
         self.base_damage = base_damage
@@ -41,12 +42,13 @@ class Weapon:
 
 
 class Armor:
-    def __init__(self, name: str, description: str, weight: int, defense: int, bludgeon_resist: int, slash_resist: int, pierce_resist: int):
+    def __init__(self, name: str, description: str, price: int, weight: int, defense: int, bludgeon_resist: int, slash_resist: int, pierce_resist: int):
         self.name = name
         self.description = description
+        self.price = price
         self.weight = weight
         self.defense = defense
-        self.bluegeon_resist = bludgeon_resist
+        self.bludgeon_resist = bludgeon_resist
         self.slash_resist = slash_resist
         self.pierce_resist = pierce_resist
 
@@ -132,8 +134,14 @@ def display_item_details(item, user: Player):
     '''Displays an item's info.'''
     print("---------------------")
     print(f"{item.name}")
+    # If the player's location is town, display the item's price / 4.
+    if user.location == Location.TOWN:
+        price = item.price / 4
+    else:
+        price = item.price
     if type(item) == Weapon:
         print(f"Description: {item.description}")
+        print(f"Price: {price}")
         print(f"|Weight: {item.weight}")
         print(f"|Weapon Skill: {item.weapon_skill}")
         print(f"|Base Damage: {item.base_damage}")
@@ -224,7 +232,7 @@ def display_item_details(item, user: Player):
         print(f"|Slash resistance: {item.slash_resist}")
         print(f"|Pierce resistance: {item.pierce_resist}")
 
-        if user.spare_armor is not None:
+        if len(user.armors) != 0:
             if item in user.equipped_armor:
                 print("Currently equipped.")
             else:

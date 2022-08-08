@@ -6,6 +6,7 @@ kills_required = [10]
 # For higher damage, reduce quality and increase weapon skill.
 name = "Fists"
 description = "Good for punching."
+price = 0
 weight = 0
 weapon_skill = 1
 base_damage = 10
@@ -15,11 +16,12 @@ slash = 0
 pierce = 0
 quality = .25
 
-fists = Weapon(name, description, weight, weapon_skill, base_damage,
-               reach, bludgeon, slash, pierce, quality)
+fists = Weapon(name, description, price, weight, weapon_skill, base_damage,
+                      reach, bludgeon, slash, pierce, quality)
 
 name = "Copper Sword"
 description = "A simple sword made of copper. High chance to do slashing damage, moderately good chance to do piercing damage, and almost no chance to do bludgeoning damage."
+price = 350
 weight = 9
 weapon_skill = 1
 base_damage = 10
@@ -29,8 +31,7 @@ slash = 6
 pierce = 3
 quality = .2
 
-
-copper_sword = Weapon(name, description, weight, weapon_skill, base_damage,
+copper_sword = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -44,7 +45,7 @@ slash = 6
 pierce = 3
 quality = .15
 
-bronze_sword = Weapon(name, description, weight, weapon_skill, base_damage,
+bronze_sword = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -58,7 +59,7 @@ slash = 6
 pierce = 3
 quality = .1
 
-iron_sword = Weapon(name, description, weight, weapon_skill, base_damage,
+iron_sword = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -72,7 +73,7 @@ slash = 16
 pierce = 3
 quality = .05
 
-steel_sword = Weapon(name, description, weight, weapon_skill, base_damage,
+steel_sword = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 swords = [copper_sword, bronze_sword, iron_sword, steel_sword]
@@ -88,7 +89,7 @@ slash = 8
 pierce = 0
 quality = .75
 
-copper_axe = Weapon(name, description, weight, weapon_skill, base_damage,
+copper_axe = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -103,7 +104,7 @@ slash = 8
 pierce = 0
 quality = .73
 
-bronze_axe = Weapon(name, description, weight, weapon_skill, base_damage,
+bronze_axe = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -117,7 +118,7 @@ slash = 8
 pierce = 0
 quality = .7
 
-iron_axe = Weapon(name, description, weight, weapon_skill, base_damage,
+iron_axe = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -130,7 +131,7 @@ slash = 8
 pierce = 0
 quality = .66
 
-steel_axe = Weapon(name, description, weight, weapon_skill, base_damage,
+steel_axe = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 axes = [copper_axe, bronze_axe, iron_axe, steel_axe]
@@ -146,7 +147,7 @@ slash = 0
 pierce = 3
 quality = .75
 
-copper_mace = Weapon(name, description, weight, weapon_skill, base_damage,
+copper_mace = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -160,7 +161,7 @@ slash = 0
 pierce = 3
 quality = .73
 
-bronze_mace = Weapon(name, description, weight, weapon_skill, base_damage,
+bronze_mace = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -174,7 +175,7 @@ slash = 0
 pierce = 3
 quality = .7
 
-iron_mace = Weapon(name, description, weight, weapon_skill, base_damage,
+iron_mace = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -188,7 +189,7 @@ slash = 0
 pierce = 3
 quality = .66
 
-steel_mace = Weapon(name, description, weight, weapon_skill, base_damage,
+steel_mace = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 maces = [copper_mace, bronze_mace, iron_mace, steel_mace]
@@ -203,7 +204,7 @@ slash = 0
 pierce = 7
 quality = .75
 
-copper_spear = Weapon(name, description, weight, weapon_skill, base_damage,
+copper_spear = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -217,7 +218,7 @@ slash = 0
 pierce = 7
 quality = .73
 
-bronze_spear = Weapon(name, description, weight, weapon_skill, base_damage,
+bronze_spear = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -231,7 +232,7 @@ slash = 0
 pierce = 7
 quality = .7
 
-iron_spear = Weapon(name, description, weight, weapon_skill, base_damage,
+iron_spear = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 
@@ -245,7 +246,7 @@ slash = 0
 pierce = 7
 quality = .66
 
-steel_spear = Weapon(name, description, weight, weapon_skill, base_damage,
+steel_spear = Weapon(name, description, price, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
 
 spears = [copper_spear, bronze_spear, iron_spear, steel_spear]
