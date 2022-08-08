@@ -12,7 +12,8 @@ def do_arena(user: Player):
 
     if arena_choice == "1":
         # If the user chose to battle, create a gladiator.
-        gladiator = Unit("The gladiator", 100, 0, 10, [], [], fists, None, None)
+        skill = random.randint(1, 10)
+        gladiator = Unit("The gladiator", 100, skill, 2, [], None, fists, None)
         user.location = battle(user, gladiator, user.location)
 
         # Depending on the outcome of the battle, print the results.

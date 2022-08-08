@@ -14,16 +14,18 @@ class Consumable:
 
 
 class Food:
-    def __init__(self, name: str, weight: int, amount: int, hp_increase: int):
+    def __init__(self, name: str, description: str,  weight: int, amount: int, hp_increase: int):
         self.name = name
+        self.description = description
         self.weight = weight
         self.amount = amount
         self.hp_increase = hp_increase
 
 
 class Weapon:
-    def __init__(self, name: str, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, exp: int = 0, poison: bool = False):
+    def __init__(self, name: str, description: str, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, poison: bool = False, exp: int = 0):
         self.name = name
+        self.description = description
         self.weight = weight
         self.weapon_skill = weapon_skill
         self.base_damage = base_damage
@@ -32,15 +34,16 @@ class Weapon:
         self.slash = slash
         self.pierce = pierce
         self.quality = quality
-        # Exp is an optional argument.
-        self.exp = exp
         # Poison will be an optional argument.
         self.poison = poison
+        # Exp is an optional argument.
+        self.exp = exp
 
 
 class Armor:
-    def __init__(self, name: str, weight: int, defense: int, bludgeon_resist: int, slash_resist: int, pierce_resist: int):
+    def __init__(self, name: str, description: str, weight: int, defense: int, bludgeon_resist: int, slash_resist: int, pierce_resist: int):
         self.name = name
+        self.description = description
         self.weight = weight
         self.defense = defense
         self.bluegeon_resist = bludgeon_resist
@@ -130,6 +133,7 @@ def display_item_details(item, user: Player):
     print("---------------------")
     print(f"{item.name}")
     if type(item) == Weapon:
+        print(f"Description: {item.description}")
         print(f"|Weight: {item.weight}")
         print(f"|Weapon Skill: {item.weapon_skill}")
         print(f"|Base Damage: {item.base_damage}")
@@ -213,6 +217,7 @@ def display_item_details(item, user: Player):
                     return
 
     if type(item) == Armor:
+        print(f"Description: {item.description}")
         print(f"|Weight: {item.weight}")
         print(f"|Defense: {item.defense}")
         print(f"|Bludgeon resistance: {item.bludgeon_resist}")
@@ -260,11 +265,13 @@ def display_item_details(item, user: Player):
                     return
 
     elif type(item) == Food:
+        print(f"Description: {item.description}")
         print(f"|Weight: {item.weight}")
         print(f"|Amount: {item.amount}")
         print(f"|HP Increase: {item.hp_increase}")
 
     elif type(item) == Consumable:
+        print(f"Description: {item.description}")
         print(f"|Description: {item.description}")
         print(f"|Amount: {item.amount}")
 
