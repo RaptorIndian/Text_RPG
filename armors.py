@@ -1,11 +1,12 @@
 from classes import *
 
 name = "Gambeson"
+description = "A padded jacket made out of multiple layers of linen fabric that were quilted together. Decent against cuts and clobbering, but weak against piercing."
 weight = 8
 defense = .95
-bludgeon_resist = .9
-slash_resist = 1.05
-pierce_resist = .8
+bludgeon_resist = 1.2
+slash_resist = 1.7
+pierce_resist = .9
 
 
 gambeson = Armor(name, weight, defense, bludgeon_resist, slash_resist, pierce_resist)

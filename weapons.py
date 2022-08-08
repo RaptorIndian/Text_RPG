@@ -3,15 +3,16 @@ from classes import *
 
 kills_required = [10]
 
+# For higher damage, reduce quality and increase weapon skill.
 name = "Fists"
 weight = 0
 weapon_skill = 1
-base_damage = 2
+base_damage = 10
 reach = 0
 bludgeon = 1
 slash = 0
 pierce = 0
-quality = .75
+quality = .25
 
 fists = Weapon(name, weight, weapon_skill, base_damage,
                reach, bludgeon, slash, pierce, quality)
@@ -24,7 +25,7 @@ reach = 1
 bludgeon = 1
 slash = 6
 pierce = 3
-quality = .75
+quality = .2
 
 
 copper_sword = Weapon(name, weight, weapon_skill, base_damage,
@@ -34,12 +35,12 @@ copper_sword = Weapon(name, weight, weapon_skill, base_damage,
 name = "Bronze Sword"
 weight = 10
 weapon_skill = 1
-base_damage = 10
+base_damage = 13
 reach = 1
 bludgeon = 1
 slash = 6
 pierce = 3
-quality = .73
+quality = .15
 
 bronze_sword = Weapon(name, weight, weapon_skill, base_damage,
                       reach, bludgeon, slash, pierce, quality)
@@ -48,12 +49,12 @@ bronze_sword = Weapon(name, weight, weapon_skill, base_damage,
 name = "Iron Sword"
 weight = 12
 weapon_skill = 1
-base_damage = 10
+base_damage = 15
 reach = 1
 bludgeon = 1
 slash = 6
 pierce = 3
-quality = .7
+quality = .1
 
 iron_sword = Weapon(name, weight, weapon_skill, base_damage,
                     reach, bludgeon, slash, pierce, quality)
@@ -62,12 +63,12 @@ iron_sword = Weapon(name, weight, weapon_skill, base_damage,
 name = "Steel Sword"
 weight = 14
 weapon_skill = 1
-base_damage = 10
+base_damage = 17
 reach = 1
 bludgeon = 1
 slash = 16
 pierce = 3
-quality = .66
+quality = .05
 
 steel_sword = Weapon(name, weight, weapon_skill, base_damage,
                      reach, bludgeon, slash, pierce, quality)

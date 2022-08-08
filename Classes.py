@@ -354,7 +354,7 @@ def weapon_skill_calc(victor: Unit, loser: Unit):
 skill_table = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 
-# dmgdmgdmg ################
+
 def damage_calc(attacker: Unit, defender: Unit):
     '''Calculates damage.'''
     base_damage = attacker.main_hand.base_damage
@@ -379,16 +379,16 @@ def damage_calc(attacker: Unit, defender: Unit):
     else:
         damage_type = "bludgeon"
 
-    # Calculate the damage with an exponential function using the base damage, weapon skill, and quality.
+    # Calculate the damage with an exponential function multiplying the base damage by the weapon skill, with the numbe being no higher than the damage cap.
+
     if weapon_skill > 0:
-        damage = (base_damage + \
-        pow(weapon_skill, 1.1))
+        damage = base_damage + \
+        pow(weapon_skill, 1.2)
 
-        # Decrease the damage the larger it is using a logarithmic function.
-        damage = damage * math.log(quality, .7)
+        # Reduce the damage with a logarithmic function.
+        damage = math.ceil(damage - (damage * quality * math.log10(damage)))
 
-        # Decrease larger amounts of damage.
-        damage = damage - math.pow(weapon_skill, .15)
+
     else:
         print("Weapon skill is 0?!")
 
@@ -398,13 +398,15 @@ def damage_calc(attacker: Unit, defender: Unit):
             # Create a logarithmic curve for the reduction of damage from defense.
             damage = damage - (damage * (math.log(defense)))
 
+        damage_type = "pierce"
+
         # Calculate a logarithmic curve for the reduction of damage from damage type.
         if damage_type == "bludgeon":
-            damage = damage - (damage * math.log(defender.equipped_armor.bluegeon_resist, .7))
+            damage = damage - (damage * math.log10(defender.equipped_armor.bluegeon_resist))
         elif damage_type == "slash":
-            damage = damage - (damage * math.log(defender.equipped_armor.slash_resist, .7))
+            damage = damage - (damage * math.log10(defender.equipped_armor.slash_resist))
         elif damage_type == "pierce":
-            damage = damage - (damage * math.log(defender.equipped_armor.pierce_resist, .7))
+            damage = damage - (damage * math.log10(defender.equipped_armor.pierce_resist))
         print(damage_type)
     # Round the damage to the nearest integer.
     damage = round(damage)
@@ -413,6 +415,7 @@ def damage_calc(attacker: Unit, defender: Unit):
         damage = 1
 
     return damage
+
 
 
 def battle(unit_1: Unit, unit_2: Unit, user_location: Location):
