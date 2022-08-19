@@ -147,7 +147,9 @@ def do_barracks(user: Player):
             # Subtract the money from the user's money.
             user.money -= amount * 30
             # Add the amount of arrows to the user's inventory.
-            user.inventory.append(Consumable("Arrows", "Ammo for projectile weapons.", amount))
+            user.inventory.append(Consumable("Arrows", "Ammo for projectile weapons.", amount, 30))
+            # Return the user to the barracks menu.
+            return Location.BARRACKS
         else:
             print("You do not have enough money.\n")
             # Return the user to the barracks menu.

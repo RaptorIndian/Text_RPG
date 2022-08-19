@@ -7,26 +7,28 @@ import math
 
 class Consumable:
     '''A class for consumable items.'''
-    def __init__(self, name: str, description: str, amount: int):
+    def __init__(self, name: str, description: str, amount: int, sell_price: int):
         self.name = name
         self.description = description
         self.amount = amount
+        self.sell_price = sell_price
 
 
 class Food:
-    def __init__(self, name: str, description: str,  weight: int, amount: int, hp_increase: int):
+    def __init__(self, name: str, description: str,  weight: int, amount: int, hp_increase: int, sell_price: int):
         self.name = name
         self.description = description
         self.weight = weight
         self.amount = amount
         self.hp_increase = hp_increase
+        self.sell_price = sell_price
 
 
 class Weapon:
-    def __init__(self, name: str, description: str, price: int, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, poison: bool = False, exp: int = 0):
+    def __init__(self, name: str, description: str, sell_price: int, weight: int, weapon_skill: int, base_damage: int, reach: int, bludgeon: int, slash: int, pierce: int, quality: int, poison: bool = False, exp: int = 0):
         self.name = name
         self.description = description
-        self.price = price
+        self.sell_price = sell_price
         self.weight = weight
         self.weapon_skill = weapon_skill
         self.base_damage = base_damage
@@ -42,10 +44,10 @@ class Weapon:
 
 
 class Armor:
-    def __init__(self, name: str, description: str, price: int, weight: int, defense: int, bludgeon_resist: int, slash_resist: int, pierce_resist: int):
+    def __init__(self, name: str, description: str, sell_price: int, weight: int, defense: int, bludgeon_resist: int, slash_resist: int, pierce_resist: int):
         self.name = name
         self.description = description
-        self.price = price
+        self.sell_price = sell_price
         self.weight = weight
         self.defense = defense
         self.bludgeon_resist = bludgeon_resist
