@@ -1,6 +1,5 @@
 from classes import *
 
-
 def do_barracks(user: Player):
     print("---------------------\n")
     print("There is a large number of soldiers waiting in the barracks just waiting to be recruited.\n")
@@ -134,15 +133,21 @@ def do_barracks(user: Player):
 
     # If the user chose to buy arrows.
     if barracks_choice == "3":
+        # If the user has enough money.
+        if user.money < 30:
+            print("You don't have enough money to buy arrows.\n")
+            # Return the user to the barracks menu.
+            return Location.BARRACKS
+
         print("You can buy arrows here.\n")
         # Request user input.
         amount = int(input("How many: "))
         # If the user has enough money.
-        if user.money >= amount * 10:
+        if user.money >= amount * 30:
             # Subtract the money from the user's money.
-            user.money -= amount * 10
+            user.money -= amount * 30
             # Add the amount of arrows to the user's inventory.
-            user.inventory.append(Arrow(amount))
+            user.inventory.append(Consumable("Arrows", "Ammo for projectile weapons.", amount))
         else:
             print("You do not have enough money.\n")
             # Return the user to the barracks menu.
